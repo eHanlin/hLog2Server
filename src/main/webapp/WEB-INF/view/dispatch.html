@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:ng="http://angularjs.org">
+<head>
+    <comment th:replace="fragment/main :: head(${'dispatch'})" th:remove="tag"/>
+</head>
+<body ng-app="hLogApp">
+    <nav th:replace="fragment/main :: navbar(${'dispatch'})"></nav>
+
+    <div class="container" ng-controller="hLogCtrl">
+
+        <div class="row">
+            <form ng-repeat="item in items" ng-submit="removeDispatch(item.id)" class="form-horizontal" role="form">
+                <div class="form-group">
+                    <div class="col-xs-11 col-sd-11 col-md-11 col-lg-11">{{item.dispatch}}</div>
+                    <div class="col-xs-1 col-sd-1 col-md-1 col-lg-1">
+                        <button type="submit" ng-disabled="newUploading" class="btn btn-danger" th:inline="text"><span class="glyphicon glyphicon-remove"></span></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <hr/>
+
+        <div class="row">
+            <select ng-model="news.type" class="form-control">
+                <option value="" th:text="#{dispatch.dispatch.selectType}"></option>
+                <option value="all" th:text="#{dispatch.dispatch.all}"></option>
+                <option value="regex" th:text="#{dispatch.dispatch.regex}"></option>
+                <option value="jsonField" th:text="#{dispatch.dispatch.jsonField}"></option>
+            </select>
+
+            <form ng-show="news.type == 'all'" ng-submit="addAllDispatch(news.queue)" class="FormDispatch Creator form-horizontal well" role="form">
+                <div class="form-group">
+                    <div class="col-xs-12 col-sd-12 col-md-12 col-lg-12">
+                        <input ng-model="news.queue" ng-readonly="newUploading" type="text" required="required" class="form-control" th:placeholder="#{dispatch.dispatch.queue.placeholder}"/>
+                    </div>
+                </div>
+                <button type="submit" ng-disabled="newUploading" class="btn btn-success" th:inline="text"><span class="glyphicon glyphicon-floppy-disk"></span> [[#{button.add}]]</button>
+            </form>
+
+            <form ng-show="news.type == 'regex'" ng-submit="addRegexDispatch(news.queue, news.regex)" class="FormDispatch Creator form-horizontal well" role="form">
+                <div class="form-group">
+                    <div class="col-xs-12 col-sd-12 col-md-12 col-lg-12">
+                        <input ng-model="news.queue" ng-readonly="newUploading" type="text" required="required" class="form-control" th:placeholder="#{dispatch.dispatch.queue.placeholder}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-sd-12 col-md-12 col-lg-12">
+                        <input ng-model="news.regex" ng-readonly="newUploading" type="text" required="required" class="form-control" th:placeholder="#{dispatch.dispatch.regex.placeholder}"/>
+                    </div>
+                </div>
+                <button type="submit" ng-disabled="newUploading" class="btn btn-success" th:inline="text"><span class="glyphicon glyphicon-floppy-disk"></span> [[#{button.add}]]</button>
+            </form>
+
+            <form ng-show="news.type == 'jsonField'" ng-submit="addJsonFieldDispatch(news.queue, news.key, news.value)" class="FormDispatch Creator form-horizontal well" role="form">
+                <div class="form-group">
+                    <div class="col-xs-12 col-sd-12 col-md-12 col-lg-12">
+                        <input ng-model="news.queue" ng-readonly="newUploading" type="text" required="required" class="form-control" th:placeholder="#{dispatch.dispatch.queue.placeholder}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-6 col-sd-6 col-md-6 col-lg-6">
+                        <input ng-model="news.key" ng-readonly="newUploading" type="text" required="required" class="form-control" th:placeholder="#{dispatch.dispatch.jsonField.key.placeholder}"/>
+                    </div>
+                    <div class="col-xs-6 col-sd-6 col-md-6 col-lg-6">
+                        <input ng-model="news.value" ng-readonly="newUploading" type="text" required="required" class="form-control" th:placeholder="#{dispatch.dispatch.jsonField.value.placeholder}"/>
+                    </div>
+                </div>
+                <button type="submit" ng-disabled="newUploading" class="btn btn-success" th:inline="text"><span class="glyphicon glyphicon-floppy-disk"></span> [[#{button.add}]]</button>
+            </form>
+        </div>
+    </div>
+
+    <comment th:include="fragment/main :: javascript" th:remove="tag"/>
+
+    <script type="text/javascript" th:src="@{/wro/dispatch.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:ng="http://angularjs.org">
+<head>
+    <comment th:replace="fragment/main :: head(${'test'})" th:remove="tag"/>
+</head>
+<body ng-app="hLogApp">
+    <nav th:replace="fragment/main :: navbar(${'test'})"></nav>
+
+    <div class="container" ng-controller="hLogCtrl">
+
+        <div class="row">
+            <form ng-submit="sendUseHttpPost(httpPostMessage)" class="form-horizontal" role="form">
+                <div class="form-group" th:text="#{test.useHttpPost}"></div>
+                <div class="form-group">
+                    <div class="col-xs-11 col-sd-11 col-md-11 col-lg-11">
+                        <input ng-model="httpPostMessage" type="text" required="required" class="form-control" th:placeholder="#{test.httpPostMessage.placeholder}"/>
+                    </div>
+                    <div class="col-xs-1 col-sd-1 col-md-1 col-lg-1">
+                        <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-cloud-upload"></span></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <hr/>
+
+        <div class="row">
+            <form ng-submit="sendUseSockJs(sockJsMessage)" class="form-horizontal" role="form">
+                <div class="form-group" th:text="#{test.useSockJs}"></div>
+                <div class="form-group">
+                    <div class="col-xs-11 col-sd-11 col-md-11 col-lg-11">
+                        <input ng-model="sockJsMessage" type="text" required="required" class="form-control" th:placeholder="#{test.sockJsMessage.placeholder}"/>
+                    </div>
+                    <div class="col-xs-1 col-sd-1 col-md-1 col-lg-1">
+                        <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-cloud-upload"></span></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <comment th:include="fragment/main :: javascript" th:remove="tag"/>
+    <comment th:include="fragment/main :: javascript-sockjs" th:remove="tag"/>
+
+    <script type="text/javascript" th:src="@{/wro/test.js}"></script>
+
+</body>
+</html>

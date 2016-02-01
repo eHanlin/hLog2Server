@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:ng="http://angularjs.org">
+<head th:fragment="head(page)">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title th:text="#{${page}+'.title'}"></title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/bootstrap/dist/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{'/wro/'+${page}+'.css'}"/>
+</head>
+<body>
+
+<nav th:fragment="navbar(page)" class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#hClick-navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" th:href="@{/}">hLog2</a>
+        <span class="navbar-brand" th:text="#{${page}+'.title'}"></span>
+    </div>
+    <div class="collapse navbar-collapse" id="hClick-navbar">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown"><span th:class="'country-icon '+#{lang.code}"/> <span th:text="#{lang.name}">正體中文</span> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="?lang=zh_TW"><span class="country-icon zh_TW"/> 正體中文</a></li>
+                    <li><a href="?lang=en_US"><span class="country-icon en_US"/> English</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div th:fragment="javascript">
+    <script type="text/javascript" th:src="@{/lib/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/lib/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/lib/angular/angular.min.js}"></script>
+</div>
+
+<div th:fragment="javascript-sockjs">
+    <script type="text/javascript" th:src="@{/lib/sockjs/sockjs.min.js}"></script>
+</div>
+
+</body>
+</html>
